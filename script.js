@@ -52,9 +52,17 @@ observer.observe(card);
 // ---------- Secret message button ----------
 const btn = document.getElementById('revealBtn');
 const secret = document.getElementById('secretMsg');
-btn.addEventListener('click', () => {
-  secret.classList.toggle('show');
-  btn.textContent = secret.classList.contains('show')
-    ? 'nascondi ✨'
-    : 'premi per un augurio segreto ✨';
-});
+
+if (btn && secret) {
+  // salva il testo originale del bottone così com'è nell'HTML,
+  // invece di riscriverlo a mano (evita disallineamenti)
+  const originalText = btn.textContent;
+  const hiddenLabel = 'nascondi ✨';
+  let isOpen = false;
+
+  btn.addEventListener('click', () => {
+    isOpen = !isOpen;
+    secret.classList.toggle('show', isOpen);
+    btn.textContent = isOpen ? hiddenLabel : originalText;
+  });
+}
